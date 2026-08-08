@@ -1,0 +1,36 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+
+
+# Load Iris dataset
+iris = pd.read_csv("iris.csv")
+
+
+X = iris.drop("species", axis=1)
+y = iris["species"]
+
+
+# Split dataset
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2,
+    random_state=2
+)
+
+
+# Create Decision Tree model
+model = DecisionTreeClassifier()
+
+
+# Train model
+model.fit(X_train, y_train)
+
+
+# Display accuracy
+print("Training Accuracy:", model.score(X_train, y_train) * 100)
+print("Testing Accuracy:", model.score(X_test, y_test) * 100)
+
+
+# Predict one sample
+prediction = model.predict([[5.1, 3.5, 1.4, 0.2]])
+print("Predicted Class:", prediction[0])
